@@ -13,9 +13,12 @@ Container_Boundary(api, "API - Laravel") {
     Component(middleware_auth, "AuthMiddleware", "Middleware", "Serviço de autenticação")
 }
 
+Component(ex_api, "AuthUser", "Endpoint", "Verifica se o usuário também está autenticado na prefeitura")
+
 Person(user, "Usuário", "Usuário do sistema")
 
 Rel(middleware_auth, controller, "Solicita dados")
+Rel(middleware_auth, ex_api, "Autentica usuário")
 Rel(controller, service, "Chama serviços de rotas")
 Rel(service, repository, "Acessa o modelo de dados")
 Rel(user, middleware_auth, "Autentica usuário")
