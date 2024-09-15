@@ -17,10 +17,13 @@ Component(ex_api, "AuthUser", "Endpoint", "Verifica se o usuário também está 
 
 Person(user, "Usuário", "Usuário do sistema")
 
+Component(web_app, "Frontend", "frontend")
+
 Rel(middleware_auth, controller, "Solicita dados")
 Rel(middleware_auth, ex_api, "Autentica usuário")
 Rel(controller, service, "Chama serviços de rotas")
 Rel(service, repository, "Acessa o modelo de dados")
-Rel(user, middleware_auth, "Autentica usuário")
+Rel(user, web_app, "Usa")
+Rel(web_app, middleware_auth, "Autentica usuário")
 
 @enduml
