@@ -10,10 +10,10 @@ Container_Boundary(api, "API - Laravel") {
     Component(controller, "TravelController", "Controller", "Gerencia operações de rotas e viagens")
     Component(service, "RouteService", "Service", "Lógica de negócio das rotas")
     Component(repository, "Route model", "Model", "Acesso a dados das rotas")
-    Component(middleware_auth, "AuthMiddleware", "Middleware", "Serviço de autenticação")
+    Component(middleware_auth, "AuthMiddleware", "Middleware", "Serviço de autenticação usando o Token")
 }
 
-Component(ex_api, "AuthUser", "Endpoint", "Verifica se o usuário também está autenticado na prefeitura")
+Component(ex_api, "AuthUser", "Endpoint", "Verifica se o usuário também está autenticado na prefeitura usando o Login-token")
 
 Person(user, "Usuário", "Usuário do sistema")
 
@@ -22,11 +22,11 @@ Component(web_app, "Frontend", "frontend")
 Component(balanca, "Balanceador de carga", "Nginx")
 
 Rel(middleware_auth, controller, "Solicita dados")
-Rel(middleware_auth, ex_api, "Autentica usuário")
+Rel(middleware_auth, ex_api, "Autentica usuário", "Login-token")
 Rel(controller, service, "Chama serviços de rotas")
 Rel(service, repository, "Acessa o modelo de dados")
 Rel(user, web_app, "Usa")
-Rel(web_app, balanca, "Gerencia o trafégo")
-Rel(balanca, middleware_auth, "Autentica usuário")
+Rel(web_app, balanca, "Envia tokens e solicita dados", "Token e Login-token")
+Rel(balanca, middleware_auth, "Autentica usuário", "Token e Login-token")
 
 @enduml
