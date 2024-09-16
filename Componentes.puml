@@ -19,11 +19,14 @@ Person(user, "Usuário", "Usuário do sistema")
 
 Component(web_app, "Frontend", "frontend")
 
+Component(balanca, "Balanceador de carga", "Nginx")
+
 Rel(middleware_auth, controller, "Solicita dados")
 Rel(middleware_auth, ex_api, "Autentica usuário")
 Rel(controller, service, "Chama serviços de rotas")
 Rel(service, repository, "Acessa o modelo de dados")
 Rel(user, web_app, "Usa")
-Rel(web_app, middleware_auth, "Autentica usuário")
+Rel(web_app, balanca, "Gerencia o trafégo")
+Rel(balanca, middleware_auth, "Autentica usuário")
 
 @enduml
